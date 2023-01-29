@@ -1,0 +1,768 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.1.129"
+        }
+      },
+      "EventBridgeCDKStateMachineEventBridgeSQSStack": {
+        "id": "EventBridgeCDKStateMachineEventBridgeSQSStack",
+        "path": "EventBridgeCDKStateMachineEventBridgeSQSStack",
+        "children": {
+          "Execution Succeed": {
+            "id": "Execution Succeed",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Execution Succeed",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Succeed",
+              "version": "2.38.1"
+            }
+          },
+          "Execution Failed": {
+            "id": "Execution Failed",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Execution Failed",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Fail",
+              "version": "2.38.1"
+            }
+          },
+          "stepFunctionExecutionLambda": {
+            "id": "stepFunctionExecutionLambda",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecutionLambda",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecutionLambda/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecutionLambda/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.38.1"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecutionLambda/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecutionLambda/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.38.1"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecutionLambda/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.38.1"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecutionLambda/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "664e36c0fb888cdf585c0277a52ab1d50b5341664a3f119e5640680297b733e2.zip"
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "stepFunctionExecutionLambdaServiceRole90B2C149",
+                        "Arn"
+                      ]
+                    },
+                    "handler": "stepFunctionExecution.handler",
+                    "runtime": "nodejs14.x",
+                    "timeout": 900
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.38.1"
+            }
+          },
+          "Business Execution Job": {
+            "id": "Business Execution Job",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Business Execution Job",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.LambdaInvoke",
+              "version": "2.38.1"
+            }
+          },
+          "Does execution successfull?": {
+            "id": "Does execution successfull?",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Does execution successfull?",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Choice",
+              "version": "2.38.1"
+            }
+          },
+          "EventBridgeStateMachineEventBridgeSQSCDK": {
+            "id": "EventBridgeStateMachineEventBridgeSQSCDK",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK",
+            "children": {
+              "Role": {
+                "id": "Role",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "states.",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ".amazonaws.com"
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.38.1"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "lambda:InvokeFunction",
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "stepFunctionExecutionLambdaB5A9F726",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "stepFunctionExecutionLambdaB5A9F726",
+                                              "Arn"
+                                            ]
+                                          },
+                                          ":*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "EventBridgeStateMachineEventBridgeSQSCDKRoleDefaultPolicy0320590F",
+                            "roles": [
+                              {
+                                "Ref": "EventBridgeStateMachineEventBridgeSQSCDKRoleAE49B49B"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.38.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.38.1"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::StepFunctions::StateMachine",
+                  "aws:cdk:cloudformation:props": {
+                    "roleArn": {
+                      "Fn::GetAtt": [
+                        "EventBridgeStateMachineEventBridgeSQSCDKRoleAE49B49B",
+                        "Arn"
+                      ]
+                    },
+                    "definitionString": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "{\"StartAt\":\"Business Execution Job\",\"States\":{\"Business Execution Job\":{\"Next\":\"Does execution successfull?\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2},{\"ErrorEquals\":[\"Failure Exception\"],\"MaxAttempts\":1}],\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"ResultPath\":\"$.message.errorMessage\",\"Next\":\"Execution Failed\"}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+                          {
+                            "Fn::GetAtt": [
+                              "stepFunctionExecutionLambdaB5A9F726",
+                              "Arn"
+                            ]
+                          },
+                          "\",\"Payload.$\":\"$\"}},\"Does execution successfull?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.processedInput.transactionStatus\",\"StringEquals\":\"completed\",\"Next\":\"Execution Succeed\"}],\"Default\":\"Execution Failed\"},\"Execution Failed\":{\"Type\":\"Fail\"},\"Execution Succeed\":{\"Type\":\"Succeed\"}}}"
+                        ]
+                      ]
+                    },
+                    "stateMachineName": "EventBridgeStateMachineEventBridgeSQSCDK"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_stepfunctions.CfnStateMachine",
+                  "version": "2.38.1"
+                }
+              },
+              "EventsRole": {
+                "id": "EventsRole",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/EventsRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/EventsRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "events.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.38.1"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/EventsRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/EventsRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "states:StartExecution",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Ref": "EventBridgeStateMachineEventBridgeSQSCDK169D119E"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "EventBridgeStateMachineEventBridgeSQSCDKEventsRoleDefaultPolicy2F6BD03A",
+                            "roles": [
+                              {
+                                "Ref": "EventBridgeStateMachineEventBridgeSQSCDKEventsRole1900DAE5"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.38.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.StateMachine",
+              "version": "2.38.1"
+            }
+          },
+          "stepFunctionEventBus": {
+            "id": "stepFunctionEventBus",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionEventBus",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionEventBus/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Events::EventBus",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "EventBridgeCDKStateMachineEventBridgeSQSStackstepFunctionEventBus583ED52C"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_events.CfnEventBus",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_events.EventBus",
+              "version": "2.38.1"
+            }
+          },
+          "stepFunctionExecution-rule": {
+            "id": "stepFunctionExecution-rule",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecution-rule",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecution-rule/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Events::Rule",
+                  "aws:cdk:cloudformation:props": {
+                    "eventBusName": {
+                      "Ref": "stepFunctionEventBus877338E6"
+                    },
+                    "eventPattern": {
+                      "source": [
+                        "CustomEvent"
+                      ],
+                      "detail-type": [
+                        "CREATE",
+                        "UPDATE",
+                        "DELETE"
+                      ]
+                    },
+                    "state": "ENABLED",
+                    "targets": [
+                      {
+                        "id": "Target0",
+                        "arn": {
+                          "Ref": "EventBridgeStateMachineEventBridgeSQSCDK169D119E"
+                        },
+                        "roleArn": {
+                          "Fn::GetAtt": [
+                            "EventBridgeStateMachineEventBridgeSQSCDKEventsRole1900DAE5",
+                            "Arn"
+                          ]
+                        },
+                        "deadLetterConfig": {
+                          "arn": {
+                            "Fn::GetAtt": [
+                              "aysncDLQD7291893",
+                              "Arn"
+                            ]
+                          }
+                        },
+                        "retryPolicy": {
+                          "maximumRetryAttempts": 3,
+                          "maximumEventAgeInSeconds": 7200
+                        }
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_events.CfnRule",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_events.Rule",
+              "version": "2.38.1"
+            }
+          },
+          "aysncDLQ": {
+            "id": "aysncDLQ",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/aysncDLQ",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/aysncDLQ/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SQS::Queue",
+                  "aws:cdk:cloudformation:props": {}
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sqs.CfnQueue",
+                  "version": "2.38.1"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/aysncDLQ/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/aysncDLQ/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SQS::QueuePolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sqs:SendMessage",
+                              "Condition": {
+                                "ArnEquals": {
+                                  "aws:SourceArn": {
+                                    "Fn::GetAtt": [
+                                      "stepFunctionExecutionrule75373645",
+                                      "Arn"
+                                    ]
+                                  }
+                                }
+                              },
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "events.amazonaws.com"
+                              },
+                              "Resource": {
+                                "Fn::GetAtt": [
+                                  "aysncDLQD7291893",
+                                  "Arn"
+                                ]
+                              },
+                              "Sid": "AllowEventRuleEventBridgeCDKStateMachineEventBridgeSQSStackstepFunctionExecutionrule045AF389"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "queues": [
+                          {
+                            "Ref": "aysncDLQD7291893"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_sqs.CfnQueuePolicy",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sqs.QueuePolicy",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_sqs.Queue",
+              "version": "2.38.1"
+            }
+          },
+          "Step function Failure Queue": {
+            "id": "Step function Failure Queue",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Step function Failure Queue",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Step function Failure Queue/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SQS::Queue",
+                  "aws:cdk:cloudformation:props": {}
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sqs.CfnQueue",
+                  "version": "2.38.1"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Step function Failure Queue/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Step function Failure Queue/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SQS::QueuePolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "sqs:GetQueueAttributes",
+                                "sqs:GetQueueUrl",
+                                "sqs:SendMessage"
+                              ],
+                              "Condition": {
+                                "ArnEquals": {
+                                  "aws:SourceArn": {
+                                    "Fn::GetAtt": [
+                                      "stepfunctionexecutionfailedeventrule31BF2A42",
+                                      "Arn"
+                                    ]
+                                  }
+                                }
+                              },
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "events.amazonaws.com"
+                              },
+                              "Resource": {
+                                "Fn::GetAtt": [
+                                  "StepfunctionFailureQueueAA30A6A7",
+                                  "Arn"
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "queues": [
+                          {
+                            "Ref": "StepfunctionFailureQueueAA30A6A7"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_sqs.CfnQueuePolicy",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sqs.QueuePolicy",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_sqs.Queue",
+              "version": "2.38.1"
+            }
+          },
+          "stepfunctionexecution-failed-event-rule": {
+            "id": "stepfunctionexecution-failed-event-rule",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepfunctionexecution-failed-event-rule",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/stepfunctionexecution-failed-event-rule/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Events::Rule",
+                  "aws:cdk:cloudformation:props": {
+                    "eventPattern": {
+                      "source": [
+                        "aws.states"
+                      ],
+                      "detail-type": [
+                        "Step Functions Execution Status Change"
+                      ],
+                      "detail": {
+                        "status": [
+                          "FAILED",
+                          "TIMED_OUT",
+                          "ABORTED"
+                        ],
+                        "stateMachineArn": [
+                          {
+                            "Ref": "EventBridgeStateMachineEventBridgeSQSCDK169D119E"
+                          }
+                        ]
+                      }
+                    },
+                    "state": "ENABLED",
+                    "targets": [
+                      {
+                        "id": "Target0",
+                        "arn": {
+                          "Fn::GetAtt": [
+                            "StepfunctionFailureQueueAA30A6A7",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_events.CfnRule",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_events.Rule",
+              "version": "2.38.1"
+            }
+          },
+          "Event Custom Bus": {
+            "id": "Event Custom Bus",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Event Custom Bus",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.38.1"
+            }
+          },
+          "StepFunction": {
+            "id": "StepFunction",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/StepFunction",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.38.1"
+            }
+          },
+          "EventBridge Failure DLQ": {
+            "id": "EventBridge Failure DLQ",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridge Failure DLQ",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.38.1"
+            }
+          },
+          "Step function Failure Events Queue": {
+            "id": "Step function Failure Events Queue",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/Step function Failure Events Queue",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.38.1"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.38.1"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "EventBridgeCDKStateMachineEventBridgeSQSStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.129"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.38.1"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.38.1"
+    }
+  }
+}

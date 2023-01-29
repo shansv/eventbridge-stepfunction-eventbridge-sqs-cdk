@@ -1,0 +1,178 @@
+{
+  "version": "20.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "EventBridgeCDKStateMachineEventBridgeSQSStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "EventBridgeCDKStateMachineEventBridgeSQSStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "EventBridgeCDKStateMachineEventBridgeSQSStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "EventBridgeCDKStateMachineEventBridgeSQSStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/64f5885b6671f08cbf62fa2ce5388f45ee8a409d060363cd40aee3b60a063cda.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "EventBridgeCDKStateMachineEventBridgeSQSStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "EventBridgeCDKStateMachineEventBridgeSQSStack.assets"
+      ],
+      "metadata": {
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecutionLambda/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "stepFunctionExecutionLambdaServiceRole90B2C149"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecutionLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "stepFunctionExecutionLambdaB5A9F726"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EventBridgeStateMachineEventBridgeSQSCDKRoleAE49B49B"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EventBridgeStateMachineEventBridgeSQSCDKRoleDefaultPolicy0320590F"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EventBridgeStateMachineEventBridgeSQSCDK169D119E"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/EventsRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EventBridgeStateMachineEventBridgeSQSCDKEventsRole1900DAE5"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridgeStateMachineEventBridgeSQSCDK/EventsRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EventBridgeStateMachineEventBridgeSQSCDKEventsRoleDefaultPolicy2F6BD03A"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionEventBus/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "stepFunctionEventBus877338E6"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/stepFunctionExecution-rule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "stepFunctionExecutionrule75373645"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/aysncDLQ/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "aysncDLQD7291893"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/aysncDLQ/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "aysncDLQPolicy6855FD6E"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/Step function Failure Queue/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StepfunctionFailureQueueAA30A6A7"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/Step function Failure Queue/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StepfunctionFailureQueuePolicy655FC167"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/stepfunctionexecution-failed-event-rule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "stepfunctionexecutionfailedeventrule31BF2A42"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/Event Custom Bus": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EventCustomBus"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/StepFunction": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StepFunction"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/EventBridge Failure DLQ": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EventBridgeFailureDLQ"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/Step function Failure Events Queue": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StepfunctionFailureEventsQueue"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/EventBridgeCDKStateMachineEventBridgeSQSStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "EventBridgeCDKStateMachineEventBridgeSQSStack"
+    }
+  }
+}
